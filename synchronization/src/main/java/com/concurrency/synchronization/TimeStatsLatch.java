@@ -1,6 +1,7 @@
 package com.concurrency.synchronization;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.stream.IntStream;
 
 public class TimeStatsLatch {
 
@@ -9,25 +10,25 @@ public class TimeStatsLatch {
         final CountDownLatch startGate = new CountDownLatch(1);
         final CountDownLatch endGate = new CountDownLatch(nThreads);
 
-
-        for (int i = 0; i < nThreads; i++) {
-            Thread t = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        startGate.await();
-                        try {
-                            task.run();
-                        } finally {
-                            endGate.countDown();
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+        Runnable runnable = () -> {
+            try {
+                startGate.await();
+                try {
+                    task.run();
+                } finally {
+                    endGate.countDown();
                 }
-            };
-            t.start();
-        }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        };
+
+        IntStream.range(0, nThreads).forEach(
+                i -> {
+                    Thread t = new Thread(runnable);
+                    t.start();
+                }
+        );
 
         long startTime = System.currentTimeMillis();
 
