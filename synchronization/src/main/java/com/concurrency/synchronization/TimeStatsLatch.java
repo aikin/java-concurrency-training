@@ -3,9 +3,23 @@ package com.concurrency.synchronization;
 import java.util.concurrent.CountDownLatch;
 import java.util.stream.IntStream;
 
-public class TimeStatsLatch {
 
-    public static long timeTasks(int nThreads, final Runnable task) throws InterruptedException {
+/**
+ * 模拟真实并发应用程序，并进行执行时间性能统计。
+ *
+ * <p>测试N个线程并发执行某个任务时需要的时间。
+ *
+ * @param nThreads
+ * @param task
+ * @return
+ * @throws InterruptedException
+ */
+
+class TimeStatsLatch {
+
+    static long timeTasks(int nThreads, final Runnable task) throws InterruptedException {
+
+        //TODO: refactor: code not in same abstract level
 
         final CountDownLatch startGate = new CountDownLatch(1);
         final CountDownLatch endGate = new CountDownLatch(nThreads);
@@ -23,12 +37,7 @@ public class TimeStatsLatch {
             }
         };
 
-        IntStream.range(0, nThreads).forEach(
-                i -> {
-                    Thread t = new Thread(runnable);
-                    t.start();
-                }
-        );
+        createMultiThread(nThreads, runnable);
 
         long startTime = System.currentTimeMillis();
 
@@ -38,5 +47,14 @@ public class TimeStatsLatch {
         long endTime = System.currentTimeMillis();
 
         return endTime - startTime;
+    }
+
+    private static void createMultiThread(int nThreads, Runnable runnable) {
+        IntStream.range(0, nThreads).forEach(
+                i -> {
+                    Thread t = new Thread(runnable);
+                    t.start();
+                }
+        );
     }
 }
