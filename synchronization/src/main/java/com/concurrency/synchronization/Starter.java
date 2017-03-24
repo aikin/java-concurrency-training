@@ -1,6 +1,6 @@
 package com.concurrency.synchronization;
 
-public class App {
+public class Starter {
     public static void main(String[] args) throws InterruptedException {
 
         Runnable runnable = () -> {

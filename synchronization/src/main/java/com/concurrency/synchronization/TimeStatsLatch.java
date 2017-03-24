@@ -8,11 +8,6 @@ import java.util.stream.IntStream;
  * 模拟真实并发应用程序，并进行执行时间性能统计。
  *
  * <p>测试N个线程并发执行某个任务时需要的时间。
- *
- * @param nThreads
- * @param task
- * @return
- * @throws InterruptedException
  */
 
 class TimeStatsLatch {
