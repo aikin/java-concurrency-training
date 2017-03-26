@@ -1,3 +1,4 @@
 rootProject.name = 'java-concurrency-training'
 include 'synchronization'
+include 'semaphore'
 
