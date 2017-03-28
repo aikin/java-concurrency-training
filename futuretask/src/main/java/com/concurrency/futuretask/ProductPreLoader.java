@@ -6,16 +6,11 @@ import java.util.concurrent.FutureTask;
 
 class ProductPreLoader {
 
-    private final FutureTask<Product> productLoadedFutureTask = new FutureTask<Product>(new Callable<Product>() {
-        @Override
-        public Product call() throws Exception {
-            return loadProduct();
-        }
+    private final Callable<Product> productCallable = () -> {
+        return new Product(1, "product");
+    };
 
-        private Product loadProduct() {
-            return new Product(1, "product");
-        }
-    });
+    private final FutureTask<Product> productLoadedFutureTask = new FutureTask<Product>(productCallable);
 
     private final Thread preLoaderThread = new Thread(productLoadedFutureTask);
 
