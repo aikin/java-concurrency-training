@@ -4,20 +4,20 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-class Memorizer {
-    private final Computable computable;
-    private final Map<Double, Double> cache = new ConcurrentHashMap<>();
+class Memorizer<K, V> {
+    private final Computable<K, V> computable;
+    private final Map<K, V> cache = new ConcurrentHashMap<>();
 
-    Memorizer(Computable computable) {
+    Memorizer(Computable<K, V> computable) {
         this.computable = computable;
     }
 
-    double compute(double number) {
-        Double result = cache.get(number);
+    V compute(K key) {
+        V result = cache.get(key);
 
         if (Objects.isNull(result)) {
-          result = computable.compute(number);
-          cache.put(number, result);
+          result = computable.compute(key);
+          cache.put(key, result);
         }
 
         return result;

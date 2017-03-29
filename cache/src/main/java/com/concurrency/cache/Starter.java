@@ -1,5 +1,6 @@
 package com.concurrency.cache;
 
+import java.math.BigInteger;
 import java.util.logging.Logger;
 
 public class Starter {
@@ -7,12 +8,14 @@ public class Starter {
     private final static Logger logger = Logger.getLogger("cache.logger");
 
     public static void main(String[] args) {
-        Memorizer memorizer = new Memorizer(new Computable());
+
+        Memorizer<String, BigInteger> memorizer = new Memorizer<>(new ExpensiveFunction());
 
         Runnable runnableWithThreadSleep = () -> {
             try {
                 Thread.sleep(100);
-                double compute = memorizer.compute(100);
+
+                BigInteger compute = memorizer.compute("100");
                 logger.info(Thread.currentThread().getName() + ": " + compute);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -20,7 +23,7 @@ public class Starter {
         };
 
         Runnable runnableWithOutThreadSleep = () -> {
-            double compute = memorizer.compute(100);
+            BigInteger compute = memorizer.compute("200");
             logger.info(Thread.currentThread().getName() + ": " + compute);
         };
 
