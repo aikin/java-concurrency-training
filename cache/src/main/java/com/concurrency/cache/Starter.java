@@ -5,7 +5,11 @@ import java.util.logging.Logger;
 
 public class Starter {
 
-    private final static Logger logger = Logger.getLogger("cache.logger");
+    private static final Logger logger = Logger.getLogger("cache.logger");
+
+    private Starter() {
+        throw new IllegalAccessError("Starter class");
+    }
 
     public static void main(String[] args) {
 
@@ -17,13 +21,18 @@ public class Starter {
 
                 BigInteger compute = memorizer.compute("100");
                 logger.info(Thread.currentThread().getName() + ": " + compute);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                logger.info(String.valueOf(e));
             }
         };
 
         Runnable runnableWithOutThreadSleep = () -> {
-            BigInteger compute = memorizer.compute("200");
+            BigInteger compute = null;
+            try {
+                compute = memorizer.compute("200");
+            } catch (Exception e) {
+                logger.info(String.valueOf(e));
+            }
             logger.info(Thread.currentThread().getName() + ": " + compute);
         };
 
