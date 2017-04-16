@@ -3,4 +3,5 @@ include 'synchronization'
 include 'semaphore'
 include 'futuretask'
 include 'cache'
+include 'word-counter'
 
