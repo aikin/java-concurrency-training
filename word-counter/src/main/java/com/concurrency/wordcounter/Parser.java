@@ -1,4 +1,4 @@
-package com.concurrency.wordcount;
+package com.concurrency.wordcounter;
 
 import java.util.concurrent.BlockingQueue;
 

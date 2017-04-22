@@ -1,4 +1,4 @@
-package com.concurrency.wordcount;
+package com.concurrency.wordcounter;
 
 abstract class Page {
     public String getTitle() { throw new UnsupportedOperationException(); }

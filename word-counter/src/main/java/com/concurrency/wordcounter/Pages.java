@@ -1,4 +1,4 @@
-package com.concurrency.wordcount;
+package com.concurrency.wordcounter;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;

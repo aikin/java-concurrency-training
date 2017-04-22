@@ -1,4 +1,4 @@
-package com.concurrency.wordcount;
+package com.concurrency.wordcounter;
 
 import java.text.BreakIterator;
 import java.util.Iterator;

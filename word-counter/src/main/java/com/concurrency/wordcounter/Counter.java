@@ -1,4 +1,5 @@
-package com.concurrency.wordcount;
+package com.concurrency.wordcounter;
+
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.concurrency.wordcount;
+package com.concurrency.wordcounter;
 
 class WikiPage extends Page {
     private String title;
