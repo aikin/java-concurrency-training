@@ -30,26 +30,28 @@ public class Starter {
 
             long end = System.currentTimeMillis();
 
-            logger.log(Level.INFO,"Elapsed time: {0} ms", end - start);
-            logger.log(Level.INFO,"Distance pairs size: {0}", distancePairs.size());
+            logger.log(Level.INFO, "Elapsed time: {0} ms", end - start);
+            logger.log(Level.INFO, "Distance pairs size: {0}", distancePairs.size());
 
-        } catch (IOException | URISyntaxException e ) {
+        } catch (IOException | URISyntaxException e) {
             throw new RuntimeException(e);
         }
 
     }
 
     private static List<DistancePair> countDistancePairs(List<Misspell> misspells, Distance distance) {
-        return misspells.stream()
-                        .map(misspell -> {
-                            DistancePair distancePair = distance.bestMatch(misspell.getMissWord());
-                            if (Objects.equals(distancePair.getWord(), misspell.getCorrectWord())) {
-                                return distancePair;
-                            }
-                            return new DistancePair(Integer.MAX_VALUE);
-                        })
-                        .filter(pair -> !Objects.equals(pair.getDistance(), Integer.MAX_VALUE))
-                        .collect(Collectors.toList());
+        return misspells
+                .stream()
+                .parallel()
+                .map(misspell -> {
+                    DistancePair distancePair = distance.bestMatch(misspell.getMissWord());
+                    if (Objects.equals(distancePair.getWord(), misspell.getCorrectWord())) {
+                        return distancePair;
+                    }
+                    return new DistancePair(Integer.MAX_VALUE);
+                })
+                .filter(pair -> !Objects.equals(pair.getDistance(), Integer.MAX_VALUE))
+                .collect(Collectors.toList());
     }
 
     private static String[] getWords() throws IOException, URISyntaxException {
@@ -58,11 +60,11 @@ public class Starter {
 
     private static List<Misspell> getMisspells() throws IOException, URISyntaxException {
         return readFileLines("misspells.txt")
-                        .map(l -> {
-                            String[] splits = l.trim().split("->");
-                            return new Misspell(splits[0], splits[1]);
-                        })
-                        .collect(Collectors.toList());
+                .map(l -> {
+                    String[] splits = l.trim().split("->");
+                    return new Misspell(splits[0], splits[1]);
+                })
+                .collect(Collectors.toList());
     }
 
     private static Stream<String> readFileLines(String wordsFileName) throws IOException, URISyntaxException {
