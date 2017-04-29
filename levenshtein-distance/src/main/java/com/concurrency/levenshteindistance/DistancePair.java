@@ -9,6 +9,11 @@ public class DistancePair {
         this.word = word;
     }
 
+    public DistancePair(int distance) {
+        this.distance = distance;
+        this.word = "NONE";
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
