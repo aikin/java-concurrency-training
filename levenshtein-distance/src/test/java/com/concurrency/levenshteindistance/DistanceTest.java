@@ -30,7 +30,7 @@ public class DistanceTest {
         assertEquals(new DistancePair(1, "teachers"), distance.bestMatch("terchers"));
         assertEquals(new DistancePair(1, "unsuccessful"), distance.bestMatch("unsuccesful"));
         assertEquals(new DistancePair(4, "turntable"), distance.bestMatch("adresable"));
-        assertEquals(new DistancePair(2), distance.bestMatch("blovd"));
+        assertEquals(new DistancePair(Integer.MAX_VALUE, "NONE"), distance.bestMatch("blovd"));
         assertEquals(new DistancePair(2, "million"), distance.bestMatch("minion"));
         assertEquals(new DistancePair(4, "million"), distance.bestMatch("comision"));
         assertEquals(new DistancePair(1, "defended"), distance.bestMatch("defnded"));
