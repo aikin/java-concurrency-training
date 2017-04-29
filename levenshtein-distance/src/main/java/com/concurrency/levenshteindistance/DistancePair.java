@@ -1,7 +1,7 @@
 package com.concurrency.levenshteindistance;
 
 public class DistancePair {
-    private final double distance;
+    private final int distance;
     private final String word;
 
     public DistancePair(int distance, String word) {
@@ -12,6 +12,14 @@ public class DistancePair {
     public DistancePair(int distance) {
         this.distance = distance;
         this.word = "NONE";
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public String getWord() {
+        return word;
     }
 
     @Override

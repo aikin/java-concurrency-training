@@ -30,7 +30,7 @@ public class Distance {
 
 
         return single ? new DistancePair(bestDistance, knownWords[bestIndex]) :
-                new DistancePair(bestDistance);
+                new DistancePair(Integer.MAX_VALUE);
     }
 
     private int editDistance(String targetText, String word, int[] v0, int[] v1) {
