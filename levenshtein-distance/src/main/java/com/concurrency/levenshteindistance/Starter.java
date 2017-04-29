@@ -39,7 +39,7 @@ public class Starter {
 
     }
 
-    private static List<DistancePair> countDistancePairs(List<Misspell> misspells, Distance distance) {
+    private static List<DistancePair> countDistancePairs(final List<Misspell> misspells, final Distance distance) {
         return misspells
                 .stream()
                 .parallel()
