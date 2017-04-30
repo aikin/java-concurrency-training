@@ -2,7 +2,6 @@ package com.concurrency.levenshteindistance;
 
 
 import com.concurrency.levenshteindistance.common.DistancePair;
-import com.concurrency.levenshteindistance.completableFuture.CompletableFutureStreamDistance;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -36,12 +35,11 @@ public class Starter {
 //            ForkJoinDistance distance = new ForkJoinDistance(getWords(), 4096);
 
 //            CompletableFutureDistance distance = new CompletableFutureDistance(getWords(), 5120);
-
 //            CompletableFutureWithCompletionHandlerDistance distance = new CompletableFutureWithCompletionHandlerDistance(getWords(), 5120);
-
 //            CompletableFutureWithCombineDistance distance = new CompletableFutureWithCombineDistance(getWords(), 4096);
+//            CompletableFutureStreamDistance distance = new CompletableFutureStreamDistance(getWords(), 2048);
 
-            CompletableFutureStreamDistance distance = new CompletableFutureStreamDistance(getWords(), 2048);
+            ParallelDistance distance = new ParallelDistance(getWords(), 4096);
 
             List<DistancePair> distancePairs = countDistancePairs(getMisspells(), distance);
 
