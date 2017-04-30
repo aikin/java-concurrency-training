@@ -1,4 +1,4 @@
-package com.concurrency.levenshteindistance;
+package com.concurrency.levenshteindistance.common;
 
 public class DistancePair {
     private static final String NONE = "NONE";

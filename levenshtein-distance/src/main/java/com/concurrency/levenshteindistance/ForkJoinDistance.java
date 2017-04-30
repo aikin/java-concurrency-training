@@ -1,5 +1,7 @@
 package com.concurrency.levenshteindistance;
 
+import com.concurrency.levenshteindistance.common.DistancePair;
+
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 

@@ -1,5 +1,6 @@
 package com.concurrency.levenshteindistance;
 
+import com.concurrency.levenshteindistance.common.DistancePair;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

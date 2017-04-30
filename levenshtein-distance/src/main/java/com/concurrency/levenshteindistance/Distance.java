@@ -1,5 +1,7 @@
 package com.concurrency.levenshteindistance;
 
+import com.concurrency.levenshteindistance.common.DistancePair;
+
 public class Distance implements IDistance {
 
     private final String[] knownWords;

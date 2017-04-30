@@ -1,6 +1,8 @@
 package com.concurrency.levenshteindistance;
 
 
+import com.concurrency.levenshteindistance.common.DistancePair;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -29,7 +31,12 @@ public class Starter {
 //            Distance distance = new Distance(getWords());
 
 //            ThreadPoolDistance distance = new ThreadPoolDistance(getWords(), 4096); // words.count/availableProcessors.count
-            ForkJoinDistance distance = new ForkJoinDistance(getWords(), 4096); // words.count/availableProcessors.count
+
+//            ForkJoinDistance distance = new ForkJoinDistance(getWords(), 4096);
+
+//            CompletableFutureDistance distance = new CompletableFutureDistance(getWords(), 5120);
+
+            CompletableFutureWithCompletionHandlerDistance distance = new CompletableFutureWithCompletionHandlerDistance(getWords(), 5120);
 
             List<DistancePair> distancePairs = countDistancePairs(getMisspells(), distance);
 
