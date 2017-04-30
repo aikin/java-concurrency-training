@@ -36,7 +36,9 @@ public class Starter {
 
 //            CompletableFutureDistance distance = new CompletableFutureDistance(getWords(), 5120);
 
-            CompletableFutureWithCompletionHandlerDistance distance = new CompletableFutureWithCompletionHandlerDistance(getWords(), 5120);
+//            CompletableFutureWithCompletionHandlerDistance distance = new CompletableFutureWithCompletionHandlerDistance(getWords(), 5120);
+
+            CompletableFutureWithCombineDistance distance = new CompletableFutureWithCombineDistance(getWords(), 4096);
 
             List<DistancePair> distancePairs = countDistancePairs(getMisspells(), distance);
 
