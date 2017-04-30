@@ -1,22 +1,23 @@
 package com.concurrency.levenshteindistance;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveTask;
 
-public class ThreadPoolDistance implements IDistance {
-
-    private final ExecutorService threadPool;
+public class ForkJoinDistance implements IDistance {
+    private ForkJoinPool threadPool = new ForkJoinPool();
 
     private final String[] knownWords;
 
     private final int blockSize;
 
+    public ForkJoinDistance(String[] words, int block) {
+        this.knownWords = words;
+        this.blockSize = block;
+    }
 
-    public ThreadPoolDistance(String[] knownWords, int blockSize) {
-        this.threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-        this.knownWords = knownWords;
-        this.blockSize = blockSize;
+    @Override
+    public DistancePair bestMatch(String target) {
+        return threadPool.invoke(new DistanceTask(target, 0, knownWords.length, knownWords));
     }
 
     @Override
@@ -24,56 +25,43 @@ public class ThreadPoolDistance implements IDistance {
         threadPool.shutdown();
     }
 
-    @Override
-    public DistancePair bestMatch(String targetText) {
+    public class DistanceTask extends RecursiveTask<DistancePair> {
 
-        int size;
-        List<DistanceTask> tasks = new ArrayList<>();
 
-        for (int base = 0; base < knownWords.length; base += size) {
-            size = Math.min(blockSize, knownWords.length - base);
-            tasks.add(new DistanceTask(targetText, base, size));
-        }
-
-        DistancePair best = DistancePair.worstMatch();
-        try {
-
-            List<Future<DistancePair>> futures = threadPool.invokeAll(tasks);
-            for (Future<DistancePair> future : futures) {
-                best = DistancePair.best(best, future.get());
-            }
-
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
-        }
-
-        return best;
-
-    }
-
-    private class DistanceTask implements Callable<DistancePair> {
         private final String compareText;
+        private final String[] matchWords;
         private final int startOffset;
         private final int compareCount;
 
-        public DistanceTask(String targetText, int startOffset, int compareCount) {
-            this.compareText = targetText;
-            this.startOffset = startOffset;
-            this.compareCount = compareCount;
+
+        public DistanceTask(String target, int offset, int count, String[] words) {
+            this.compareText = target;
+            this.startOffset = offset;
+            this.compareCount = count;
+            this.matchWords = words;
         }
 
         @Override
-        public DistancePair call() throws Exception {
+        protected DistancePair compute() {
+            if (compareCount > blockSize) {
 
+                // split range in half and find best result from bests in each half of range
+                int half = compareCount / 2;
+                DistanceTask t1 = new DistanceTask(compareText, startOffset, half, matchWords);
+                t1.fork();
+                DistanceTask t2 = new DistanceTask(compareText, startOffset + half, compareCount - half, matchWords);
+                DistancePair p2 = t2.compute();
+                return DistancePair.best(p2, t1.join());
+            }
+
+            // directly compare distances for comparison words in range
             int[] v0 = new int[compareText.length() + 1];
             int[] v1 = new int[compareText.length() + 1];
-
             int bestIndex = -1;
             int bestDistance = Integer.MAX_VALUE;
-
             boolean single = false;
             for (int i = 0; i < compareCount; i++) {
-                int distance = editDistance(compareText, knownWords[i + startOffset], v0, v1);
+                int distance = editDistance(compareText, matchWords[i + startOffset], v0, v1);
                 if (bestDistance > distance) {
                     bestDistance = distance;
                     bestIndex = i + startOffset;
@@ -82,7 +70,6 @@ public class ThreadPoolDistance implements IDistance {
                     single = false;
                 }
             }
-
             return single ? new DistancePair(bestDistance, knownWords[bestIndex]) :
                     new DistancePair(bestDistance);
         }
@@ -119,5 +106,7 @@ public class ThreadPoolDistance implements IDistance {
         private int minimum(int a, int b, int c) {
             return Math.min(Math.min(a, b), c);
         }
+
     }
+
 }

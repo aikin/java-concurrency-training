@@ -28,7 +28,8 @@ public class Starter {
 
 //            Distance distance = new Distance(getWords());
 
-            ThreadPoolDistance distance = new ThreadPoolDistance(getWords(), 4096); // words.count/availableProcessors.count
+//            ThreadPoolDistance distance = new ThreadPoolDistance(getWords(), 4096); // words.count/availableProcessors.count
+            ForkJoinDistance distance = new ForkJoinDistance(getWords(), 4096); // words.count/availableProcessors.count
 
             List<DistancePair> distancePairs = countDistancePairs(getMisspells(), distance);
 
