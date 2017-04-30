@@ -33,6 +33,7 @@ public class Starter {
 //            ThreadPoolDistance distance = new ThreadPoolDistance(getWords(), 4096); // words.count/availableProcessors.count
 
 //            ForkJoinDistance distance = new ForkJoinDistance(getWords(), 4096);
+//            ForkJoinStreamDistance distance = new ForkJoinStreamDistance(getWords(), 4096);
 
 //            CompletableFutureDistance distance = new CompletableFutureDistance(getWords(), 5120);
 //            CompletableFutureWithCompletionHandlerDistance distance = new CompletableFutureWithCompletionHandlerDistance(getWords(), 5120);
