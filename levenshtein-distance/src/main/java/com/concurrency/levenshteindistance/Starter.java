@@ -40,7 +40,9 @@ public class Starter {
 //            CompletableFutureWithCombineDistance distance = new CompletableFutureWithCombineDistance(getWords(), 4096);
 //            CompletableFutureStreamDistance distance = new CompletableFutureStreamDistance(getWords(), 2048);
 
-            ParallelDistance distance = new ParallelDistance(getWords(), 4096);
+//            ChunkParallelDistance distance = new ChunkParallelDistance(getWords(), 4096);
+            
+            NonChunkParallelDistance distance = new NonChunkParallelDistance(getWords());
 
             List<DistancePair> distancePairs = countDistancePairs(getMisspells(), distance);
 
