@@ -2,7 +2,7 @@ package com.concurrency.levenshteindistance;
 
 
 import com.concurrency.levenshteindistance.common.DistancePair;
-import com.concurrency.levenshteindistance.completableFuture.CompletableFutureWithCombineDistance;
+import com.concurrency.levenshteindistance.completableFuture.CompletableFutureStreamDistance;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -39,7 +39,9 @@ public class Starter {
 
 //            CompletableFutureWithCompletionHandlerDistance distance = new CompletableFutureWithCompletionHandlerDistance(getWords(), 5120);
 
-            CompletableFutureWithCombineDistance distance = new CompletableFutureWithCombineDistance(getWords(), 4096);
+//            CompletableFutureWithCombineDistance distance = new CompletableFutureWithCombineDistance(getWords(), 4096);
+
+            CompletableFutureStreamDistance distance = new CompletableFutureStreamDistance(getWords(), 2048);
 
             List<DistancePair> distancePairs = countDistancePairs(getMisspells(), distance);
 
