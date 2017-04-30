@@ -1,6 +1,7 @@
 
-package com.concurrency.levenshteindistance;
+package com.concurrency.levenshteindistance.completableFuture;
 
+import com.concurrency.levenshteindistance.IDistance;
 import com.concurrency.levenshteindistance.common.ChunkDistanceChecker;
 import com.concurrency.levenshteindistance.common.DistancePair;
 

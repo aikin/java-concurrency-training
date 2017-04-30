@@ -2,6 +2,7 @@ package com.concurrency.levenshteindistance;
 
 
 import com.concurrency.levenshteindistance.common.DistancePair;
+import com.concurrency.levenshteindistance.completableFuture.CompletableFutureWithCombineDistance;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

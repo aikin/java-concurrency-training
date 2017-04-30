@@ -1,1 +1,2 @@
-使用标准 ThreadPool 比 ForkJoin 更好。但请注意，ThreadPool 的 “最佳性能点” 取决于具体任务、可用处理器数量以及您系统的其他因素。一般而言，ForkJoin 以最小的调优需求带来了优秀的性能，所以最好尽可能地使用它。
+> * 使用标准 ThreadPool 比 ForkJoin 更好。但请注意，ThreadPool 的 “最佳性能点” 取决于具体任务、可用处理器数量以及您系统的其他因素。一般而言，ForkJoin 以最小的调优需求带来了优秀的性能，所以最好尽可能地使用它。
+> * CompletableFuture is best used when you're doing different types of operations and must coordinate the results. When you're running the same calculation on many different data values, parallel streams give you a simpler approach and likely better performance. The edit-distance-checking example is a better match with the parallel streams approach.
