@@ -10,12 +10,11 @@ import static org.junit.Assert.assertEquals;
 
 public class DistanceTest {
 
-    private static final String[] TEST_WORDS = "accepts:access's:accord:aiding:amazing:approximately:article's:aspects:assignments:asynchronous:avoiding:beloved:boiled:burning:candidate:care:cartridge's:chain:coincide:comparison's:competing:concern's:cooked:counting:crash's:dare:debug:declares:deeply:defended:descends:dictionary:dole:drawn:elections:end's:epic:equivalents:everything:expiry:external:factory:far:founding:gasp:glove:grind:head's:high:hurts:distanceausible:incoming:intake:intends:lecturer:logically:lost:man:mentally:meters:million:miracle's:misunderstanding:nations:network:often:overpricing:overtime:painting:pardon:piano:pit:prevention:pursues:quotation's:re:restrict:risk's:scientist's:settle:settling:several:sights:slang:starters:steered:stolen:store's:supervisions:sympathize:tea:teachers:thus:tower:transaction's:turntable:unsuccessful:valued:very:voluntarily".split(":");
     private Distance distance;
 
     @Before
     public void setUp() throws Exception {
-        distance = new Distance(TEST_WORDS);
+        distance = new Distance(TestWords.TEST_WORDS);
     }
 
     @After

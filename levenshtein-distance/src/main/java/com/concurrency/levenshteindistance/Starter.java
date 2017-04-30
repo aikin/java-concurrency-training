@@ -26,9 +26,15 @@ public class Starter {
 
             long start = System.currentTimeMillis();
 
-            List<DistancePair> distancePairs = countDistancePairs(getMisspells(), new Distance(getWords()));
+//            Distance distance = new Distance(getWords());
+
+            ThreadPoolDistance distance = new ThreadPoolDistance(getWords(), 4096); // words.count/availableProcessors.count
+
+            List<DistancePair> distancePairs = countDistancePairs(getMisspells(), distance);
 
             long end = System.currentTimeMillis();
+
+            distance.shutdown();
 
             logger.log(Level.INFO, "Elapsed time: {0} ms", end - start);
             logger.log(Level.INFO, "Distance pairs size: {0}", distancePairs.size());
@@ -39,7 +45,7 @@ public class Starter {
 
     }
 
-    private static List<DistancePair> countDistancePairs(final List<Misspell> misspells, final Distance distance) {
+    private static List<DistancePair> countDistancePairs(final List<Misspell> misspells, final IDistance distance) {
         return misspells
                 .stream()
                 .parallel()

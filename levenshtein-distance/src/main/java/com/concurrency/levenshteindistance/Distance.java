@@ -1,6 +1,6 @@
 package com.concurrency.levenshteindistance;
 
-public class Distance {
+public class Distance implements IDistance {
 
     private final String[] knownWords;
 
@@ -8,6 +8,7 @@ public class Distance {
         this.knownWords = knownWords;
     }
 
+    @Override
     public DistancePair bestMatch(String targetText) {
         int[] v0 = new int[targetText.length() + 1];
         int[] v1 = new int[targetText.length() + 1];
@@ -31,6 +32,11 @@ public class Distance {
 
         return single ? new DistancePair(bestDistance, knownWords[bestIndex]) :
                 new DistancePair(Integer.MAX_VALUE);
+    }
+
+    @Override
+    public void shutdown() {
+
     }
 
     private int editDistance(String targetText, String word, int[] v0, int[] v1) {
