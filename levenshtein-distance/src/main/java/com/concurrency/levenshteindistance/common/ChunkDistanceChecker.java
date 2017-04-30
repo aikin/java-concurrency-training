@@ -43,9 +43,10 @@ public class ChunkDistanceChecker {
         	new DistancePair(bestDistance);
     }
 
-    public DistancePair bestDistance2(String target) {
+    public DistancePair bestDistanceSimple(String target) {
         int[] v0 = new int[target.length() + 1];
         int[] v1 = new int[target.length() + 1];
+
         DistancePair best = DistancePair.worstMatch();
         for (String knownWord : knownWords) {
             best = DistancePair.best(best, new DistancePair(editDistance(target, knownWord, v0, v1), knownWord));
@@ -53,11 +54,12 @@ public class ChunkDistanceChecker {
         return best;
     }
 
-    public DistancePair bestDistance3(String target) {
+    public DistancePair bestDistanceStream(String target) {
         int[] v0 = new int[target.length() + 1];
         int[] v1 = new int[target.length() + 1];
+
         return IntStream.range(0, knownWords.length)
-            .mapToObj((i) -> new DistancePair(editDistance(target, knownWords[i], v0, v1), knownWords[i]))
+            .mapToObj(i -> new DistancePair(editDistance(target, knownWords[i], v0, v1), knownWords[i]))
             .reduce(DistancePair.worstMatch(), DistancePair::best);
     }
 

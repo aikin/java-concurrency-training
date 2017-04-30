@@ -20,7 +20,7 @@ public class ParallelDistance implements IDistance {
     public DistancePair bestMatch(String target) {
 
         return chunkCheckers.parallelStream()
-                .map(checker -> checker.bestDistance(target))
+                .map(checker -> checker.bestDistanceSimple(target))
                 .reduce(DistancePair.worstMatch(), DistancePair::best);
     }
 
