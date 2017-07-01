@@ -8,7 +8,7 @@ gradle-app.setting
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
-gradle/wrapper/gradle-3.4-all.zip
+#gradle/wrapper/gradle-3.4-all.zip
 
 # Cache of project
 .gradletasknamecache
