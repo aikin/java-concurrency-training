@@ -1,17 +1,26 @@
-apply plugin: "idea"
-apply plugin: "java"
-
-sourceCompatibility = 1.8
-
-repositories {
-    jcenter()
+allprojects {
+    version = '1.0.0'
+    apply plugin: "idea"
+    apply plugin: "java"
 }
 
-ext {
-    junitVersion = "4.12"
+subprojects {
+    sourceCompatibility = 1.8
+
+    repositories {
+        jcenter()
+    }
+
+    ext {
+        junitVersion = "4.12"
+    }
+
+    dependencies {
+        testCompile "junit:junit:$junitVersion"
+    }
+
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
 }
 
-dependencies {
-    testCompile "junit:junit:$junitVersion"
-}
 
